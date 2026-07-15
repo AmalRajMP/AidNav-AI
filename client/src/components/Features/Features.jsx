@@ -27,7 +27,7 @@ const features = [
 
 const Features = () => {
   return (
-    <section className="features-section">
+    <section id="features" className="features-section">
       <div className="features-container">
         <div className="section-header">
           <span className="section-tag">Features</span>
