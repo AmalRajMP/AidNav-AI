@@ -1,5 +1,13 @@
+import Hero from "../../components/Hero/Hero"
+import Features from "../../components/Features/Features"
+
 const Home = () => {
-  return <h1>Home Page</h1>
+  return (
+    <>
+      <Hero />
+      <Features />
+    </>
+  )
 }
 
 export default Home
