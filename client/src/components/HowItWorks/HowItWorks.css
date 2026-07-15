@@ -1,0 +1,139 @@
+.how-section {
+  padding: 100px 24px;
+  background: #ffffff;
+}
+
+.how-container {
+  width: min(1120px, 92%);
+  margin: auto;
+}
+
+.how-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 64px;
+}
+
+.how-tag {
+  display: inline-block;
+
+  padding: 8px 16px;
+  margin-bottom: 16px;
+
+  border-radius: 999px;
+
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--primary-color);
+
+  font-weight: 600;
+}
+
+.how-header h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.2;
+
+  color: var(--text-primary);
+
+  margin-bottom: 18px;
+}
+
+.how-header h2 span {
+  color: var(--primary-color);
+}
+
+.how-header p {
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+.step-card {
+  position: relative;
+
+  padding: 36px 28px;
+
+  background: #fff;
+
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+
+  transition: all 0.3s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.step-number {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(37, 99, 235, 0.12);
+  color: var(--primary-color);
+
+  font-weight: 700;
+}
+
+.step-icon {
+  width: 68px;
+  height: 68px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 24px;
+
+  border-radius: 18px;
+
+  background: rgba(37, 99, 235, 0.08);
+
+  color: var(--primary-color);
+
+  font-size: 1.9rem;
+}
+
+.step-card h3 {
+  margin-bottom: 14px;
+
+  color: var(--text-primary);
+
+  font-size: 1.25rem;
+}
+
+.step-card p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+@media (max-width: 992px) {
+  .steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .how-section {
+    padding: 80px 24px;
+  }
+}
