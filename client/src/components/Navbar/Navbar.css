@@ -20,11 +20,24 @@
   justify-content: space-between;
   align-items: center;
 }
+.footer-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
 
-.navbar-logo {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
+
   color: var(--text-primary);
+}
+
+.footer-logo svg {
+  color: var(--primary-color);
+}
+
+.footer-logo span {
+  color: var(--primary-color);
 }
 
 .navbar-links {

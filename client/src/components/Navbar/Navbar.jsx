@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Link, NavLink } from "react-router-dom"
 import { HiOutlineBars3, HiOutlineXMark } from "react-icons/hi2"
+import { FiShield } from "react-icons/fi"
 
 import "./Navbar.css"
 
@@ -10,8 +11,11 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo">
-          🛡️ AidNav AI
+        <Link to="/">
+          <h2 className="footer-logo">
+            <FiShield />
+            AidNav <span>AI</span>
+          </h2>
         </Link>
 
         <ul className={`navbar-links ${isMenuOpen ? "active" : ""}`}>
