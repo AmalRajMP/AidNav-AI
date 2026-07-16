@@ -1,5 +1,5 @@
 .benefits-page {
-  min-height: calc(100vh - 80px);
+  height: calc(100vh - 140px);
 
   display: flex;
   flex-direction: column;
@@ -9,7 +9,7 @@
 
   margin: 0 auto;
 
-  padding: 2rem 1.5rem;
+  padding: 1.5rem;
 }
 
 .welcome-section {
@@ -24,14 +24,26 @@
 
 .chat-content {
   flex: 1;
+
   overflow-y: auto;
-  padding: 24px 0;
-}
-.chat-messages {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
+
   display: flex;
   flex-direction: column;
+
+  padding-bottom: 1rem;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.chat-content::-webkit-scrollbar {
+  display: none;
+}
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+
   gap: 24px;
+
+  width: 100%;
 }

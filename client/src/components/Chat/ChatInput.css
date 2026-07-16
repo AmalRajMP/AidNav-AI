@@ -10,12 +10,13 @@
   flex-direction: column;
   gap: 1rem;
 
-  padding: 20px 24px 28px;
   background: #f8fafc;
 }
 
 .chat-input textarea {
   width: 100%;
+  min-height: 72px;
+  max-height: 180px;
   resize: none;
   padding: 1rem;
   padding-right: 70px;
@@ -23,6 +24,10 @@
   border: 1px solid #dbe4ee;
   outline: none;
   font: inherit;
+
+  overflow-y: auto;
+
+  transition: border-color 0.2s ease;
 }
 
 .chat-input textarea:focus {
@@ -56,4 +61,9 @@
 
 .send-button svg {
   font-size: 1.1rem;
+}
+.send-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
 }

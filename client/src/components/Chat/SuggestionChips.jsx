@@ -1,12 +1,17 @@
+import { CHAT_SUGGESTIONS } from "../../constants/chatSuggestions"
+
 import "./SuggestionChips.css"
 
-const suggestions = ["Student", "Farmer", "Job Seeker", "Business Owner"]
-
-const SuggestionChips = () => {
+const SuggestionChips = ({ onSuggestionClick }) => {
   return (
     <div className="suggestion-chips">
-      {suggestions.map((item) => (
-        <button key={item} className="suggestion-chip" type="button">
+      {CHAT_SUGGESTIONS.map((item) => (
+        <button
+          key={item}
+          type="button"
+          className="suggestion-chip"
+          onClick={() => onSuggestionClick(item)}
+        >
           {item}
         </button>
       ))}

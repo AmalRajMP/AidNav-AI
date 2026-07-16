@@ -1,10 +1,12 @@
 import "./ChatMessage.css"
 
-const ChatMessage = ({ role, message }) => {
+const ChatMessage = ({ role, content }) => {
+  const lines = content.split("\n")
+
   return (
     <div className={`chat-message ${role}`}>
       <div className="message-content">
-        {message.split("\n").map((line, index) => (
+        {lines.map((line, index) => (
           <p key={index}>{line}</p>
         ))}
       </div>

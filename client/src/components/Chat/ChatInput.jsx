@@ -36,6 +36,7 @@ const ChatInput = ({ onSend }) => {
           type="button"
           className="send-button"
           aria-label="Send message"
+          disabled={!input.trim()}
           onClick={handleSend}
         >
           <IoSend />

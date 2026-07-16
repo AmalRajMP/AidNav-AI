@@ -28,4 +28,9 @@
   background: #2563eb;
   color: white;
   border-color: #2563eb;
+  transform: translateY(-2px);
+}
+.suggestion-chip:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
 }

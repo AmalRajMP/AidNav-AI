@@ -4,7 +4,7 @@ import SuggestionChips from "./SuggestionChips"
 
 import "./WelcomeScreen.css"
 
-const WelcomeScreen = () => {
+const WelcomeScreen = ({ onSuggestionClick }) => {
   return (
     <section className="welcome-screen">
       <div className="welcome-card">
@@ -12,7 +12,7 @@ const WelcomeScreen = () => {
 
         <p>{WELCOME_MESSAGE}</p>
 
-        <SuggestionChips />
+        <SuggestionChips onSuggestionClick={onSuggestionClick} />
       </div>
     </section>
   )
