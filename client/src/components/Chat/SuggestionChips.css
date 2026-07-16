@@ -1,0 +1,31 @@
+.suggestion-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  gap: 1rem;
+
+  max-width: 720px;
+}
+
+.suggestion-chip {
+  background: white;
+
+  border: 1px solid #dbe4ee;
+
+  border-radius: 999px;
+
+  padding: 0.8rem 1.4rem;
+
+  cursor: pointer;
+
+  font-size: 0.95rem;
+
+  transition: all 0.2s ease;
+}
+
+.suggestion-chip:hover {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}

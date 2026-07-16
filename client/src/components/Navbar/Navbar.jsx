@@ -24,7 +24,7 @@ const Navbar = () => {
           </li>
 
           <li>
-            <NavLink to="/scheme-finder">Find Schemes</NavLink>
+            <NavLink to="/find-benefits">Find Benefits</NavLink>
           </li>
 
           <li>
@@ -42,7 +42,7 @@ const Navbar = () => {
         >
           {isMenuOpen ? <HiOutlineXMark /> : <HiOutlineBars3 />}
         </button>
-        <Link to="/scheme-finder" className="navbar-button">
+        <Link to="/find-benefits" className="navbar-button">
           Get Started
         </Link>
       </div>

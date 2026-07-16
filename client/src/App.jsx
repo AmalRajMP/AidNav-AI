@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom"
 import MainLayout from "./layouts/MainLayout/MainLayout"
 
 import Home from "./pages/Home/Home"
-import SchemeFinder from "./pages/SchemeFinder/SchemeFinder"
+import BenefitsFinder from "./pages/BenefitsFinder/BenefitsFinder"
 import About from "./pages/About/About"
 import Contact from "./pages/Contact/Contact"
 import NotFound from "./pages/NotFound/NotFound"
@@ -13,7 +13,7 @@ const App = () => {
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/scheme-finder" element={<SchemeFinder />} />
+        <Route path="/find-benefits" element={<BenefitsFinder />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />

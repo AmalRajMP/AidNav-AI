@@ -23,7 +23,7 @@ const Hero = () => {
           </p>
 
           <div className="hero-buttons">
-            <Link to="/scheme-finder" className="primary-button">
+            <Link to="/find-benefits" className="primary-button">
               Check My Eligibility
             </Link>
 

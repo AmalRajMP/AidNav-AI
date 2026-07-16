@@ -19,7 +19,7 @@ const CTA = () => {
           just a few seconds.
         </p>
         <div className="cta-buttons">
-          <Link to="/scheme-finder" className="cta-primary">
+          <Link to="/find-benefits" className="cta-primary">
             Try AidNav AI →
           </Link>
         </div>
