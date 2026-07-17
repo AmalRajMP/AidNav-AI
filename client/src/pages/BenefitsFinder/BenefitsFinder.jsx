@@ -20,7 +20,7 @@ const BenefitsFinder = () => {
     })
   }, [messages, isTyping])
 
-  const handleSendMessage = (text) => {
+  const handleSendMessage = async (text) => {
     const userMessage = {
       id: uuidv4(),
       role: "user",
@@ -31,17 +31,39 @@ const BenefitsFinder = () => {
 
     setIsTyping(true)
 
-    setTimeout(() => {
-      const botMessage = {
-        id: uuidv4(),
-        role: "bot",
-        content:
-          "This is a temporary AI response.\nGemini integration comes next.",
+    try {
+      const url = "http://localhost:5000/api/chat"
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          history: messages,
+          message: text,
+        }),
       }
 
-      setMessages((prev) => [...prev, botMessage])
+      const response = await fetch(url, options)
+      const data = await response.json()
+      console.log(data)
+      if (!response.ok) {
+        throw new Error("Request failed")
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: uuidv4(),
+            role: "bot",
+            content: data.reply,
+          },
+        ])
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
       setIsTyping(false)
-    }, 1500)
+    }
   }
 
   return (
