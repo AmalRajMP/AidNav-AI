@@ -10,6 +10,7 @@ import "./BenefitsFinder.css"
 
 const BenefitsFinder = () => {
   const [messages, setMessages] = useState([])
+  const [userProfile, setUserProfile] = useState({})
   const [isTyping, setIsTyping] = useState(false)
 
   const messagesEndRef = useRef(null)
@@ -41,12 +42,13 @@ const BenefitsFinder = () => {
         body: JSON.stringify({
           history: messages,
           message: text,
+          userProfile,
         }),
       }
 
       const response = await fetch(url, options)
-      const data = await response.json()
-      console.log(data)
+      const { reply, profile } = await response.json()
+      console.log({ reply, profile })
       if (!response.ok) {
         throw new Error("Request failed")
       } else {
@@ -55,9 +57,10 @@ const BenefitsFinder = () => {
           {
             id: uuidv4(),
             role: "bot",
-            content: data.reply,
+            content: reply,
           },
         ])
+        setUserProfile(profile)
       }
     } catch (error) {
       console.log(error)

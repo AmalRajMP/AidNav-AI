@@ -1,4 +1,5 @@
-import { generateResponse } from "../gemini/geminiService.js"
+import { generateResponse, extractProfile } from "../gemini/geminiService.js"
+import mergeProfile from "../../utils/mergeProfile.js"
 
 const buildContents = (history, message) => {
   const contents = history.map(({ role, content }) => ({
@@ -22,12 +23,15 @@ const buildContents = (history, message) => {
   return contents
 }
 
-const aiService = async (history = [], message) => {
-  const contents = buildContents(history, message)
-  console.log(JSON.stringify(contents, null, 2))
-  const reply = await generateResponse(contents)
+const aiService = async (history = [], message, userProfile = {}) => {
+  const extractedProfile = await extractProfile(message)
+  const updatedProfile = mergeProfile(userProfile, extractedProfile)
 
-  return reply
+  const contents = buildContents(history, message)
+
+  const reply = await generateResponse(contents, updatedProfile)
+
+  return { reply, profile: updatedProfile }
 }
 
 export default aiService
