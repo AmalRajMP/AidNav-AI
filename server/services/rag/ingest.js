@@ -5,6 +5,16 @@ import { createEmbedding } from "./embedding.js"
 import { getCollection } from "./collection.js"
 
 const ingest = async () => {
+  try {
+    await client.deleteCollection({
+      name: COLLECTION_NAME,
+    })
+
+    console.log("Old collection deleted.")
+  } catch {
+    console.log("No previous collection found.")
+  }
+
   const collection = await getCollection()
 
   const schemesDir = path.join(

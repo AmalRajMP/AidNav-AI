@@ -1,8 +1,13 @@
 import { generateResponse, extractProfile } from "../gemini/geminiService.js"
 import mergeProfile from "../../utils/mergeProfile.js"
+import { searchDocuments } from "../rag/query.js"
+import shouldExtractProfile from "../../utils/shouldExtractProfile.js"
+import shouldSkipRAG from "../../utils/shouldSkipRAG.js"
 
 const buildContents = (history, message) => {
-  const contents = history.map(({ role, content }) => ({
+  const recentHistory = history.slice(-8)
+
+  const contents = recentHistory.map(({ role, content }) => ({
     role: role === "bot" ? "model" : "user",
     parts: [
       {
@@ -24,12 +29,33 @@ const buildContents = (history, message) => {
 }
 
 const aiService = async (history = [], message, userProfile = {}) => {
-  const extractedProfile = await extractProfile(message)
-  const updatedProfile = mergeProfile(userProfile, extractedProfile)
+  let updatedProfile = userProfile
 
+  let updatedProfile = userProfile
+
+  if (shouldExtractProfile(message)) {
+    try {
+      const extractedProfile = await extractProfile(message)
+      updatedProfile = mergeProfile(userProfile, extractedProfile)
+    } catch (error) {
+      console.warn("Profile extraction skipped:", error.message)
+    }
+  }
   const contents = buildContents(history, message)
 
-  const reply = await generateResponse(contents, updatedProfile)
+  let relevantDocuments = []
+
+  if (!shouldSkipRAG(message)) {
+    relevantDocuments = await searchDocuments(message)
+  }
+
+  console.log("Retrieved documents:", relevantDocuments)
+
+  const reply = await generateResponse(
+    contents,
+    updatedProfile,
+    relevantDocuments,
+  )
 
   return { reply, profile: updatedProfile }
 }

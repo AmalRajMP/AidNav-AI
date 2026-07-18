@@ -11,5 +11,5 @@ export const searchDocuments = async (query) => {
     nResults: 3,
   })
 
-  return results
+  return results.documents?.[0] ?? []
 }
