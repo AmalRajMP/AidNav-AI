@@ -7,26 +7,47 @@ import { getCollection } from "./collection.js"
 const ingest = async () => {
   const collection = await getCollection()
 
-  const filePath = path.join(
+  const schemesDir = path.join(
     process.cwd(),
     "services",
     "rag",
     "data",
     "schemes",
-    "pm-kisan.txt",
   )
 
-  const document = await fs.readFile(filePath, "utf-8")
+  const files = await fs.readdir(schemesDir)
 
-  const embedding = await createEmbedding(document)
+  console.log(`Found ${files.length} scheme files.\n`)
 
-  await collection.add({
-    ids: ["pm-kisan"],
-    documents: [document],
-    embeddings: [embedding],
-  })
+  for (let fileIndex = 0; fileIndex < files.length; fileIndex++) {
+    const fileName = files[fileIndex]
 
-  console.log("Document ingested successfully.")
+    if (!fileName.endsWith(".txt")) continue
+
+    console.log(`Processing ${fileIndex + 1}/${files.length}: ${fileName}`)
+
+    const schemeName = fileName.replace(".txt", "")
+
+    const filePath = path.join(schemesDir, fileName)
+
+    const document = await fs.readFile(filePath, "utf-8")
+
+    const embedding = await createEmbedding(document)
+
+    await collection.add({
+      ids: [schemeName],
+      documents: [document],
+      embeddings: [embedding],
+      metadatas: [
+        {
+          scheme: schemeName,
+          source: fileName,
+        },
+      ],
+    })
+  }
+
+  console.log("\n All schemes ingested successfully.")
 }
 
-ingest()
+ingest().catch(console.error)
