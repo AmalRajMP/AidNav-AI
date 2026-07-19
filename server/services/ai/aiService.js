@@ -1,4 +1,4 @@
-import { generateResponse, extractProfile } from "../gemini/geminiService.js"
+import { generateResponse, extractProfile } from "../groq/groqService.js"
 import mergeProfile from "../../utils/mergeProfile.js"
 import { searchDocuments } from "../rag/query.js"
 import shouldExtractProfile from "../../utils/shouldExtractProfile.js"
@@ -8,29 +8,19 @@ const buildContents = (history, message) => {
   const recentHistory = history.slice(-8)
 
   const contents = recentHistory.map(({ role, content }) => ({
-    role: role === "bot" ? "model" : "user",
-    parts: [
-      {
-        text: content,
-      },
-    ],
+    role: role === "bot" ? "assistant" : "user",
+    content,
   }))
 
   contents.push({
     role: "user",
-    parts: [
-      {
-        text: message,
-      },
-    ],
+    content: message,
   })
 
   return contents
 }
 
 const aiService = async (history = [], message, userProfile = {}) => {
-  let updatedProfile = userProfile
-
   let updatedProfile = userProfile
 
   if (shouldExtractProfile(message)) {
