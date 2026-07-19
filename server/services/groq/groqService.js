@@ -7,35 +7,84 @@ export const generateResponse = async (
   contents,
   profile,
   relevantDocuments = [],
+  nextQuestion = null,
 ) => {
   console.log(profile)
   console.log("Retrieved document count:", relevantDocuments.length)
 
   const trimmedDocuments = relevantDocuments.map((doc) =>
-    doc.length > 2500 ? doc.slice(0, 2500) + "\n..." : doc,
+    doc.length > 1200 ? doc.slice(0, 1200) + "\n..." : doc,
   )
 
+  let modeInstructions = ""
+
+  if (nextQuestion) {
+    modeInstructions = `
+CURRENT MODE: PROFILE COLLECTION
+
+The user's profile is NOT complete yet.
+
+Your responsibilities:
+
+- Collect ONLY the missing profile information.
+- Do NOT recommend any government schemes.
+- Do NOT mention any scheme names.
+- Do NOT guess any schemes.
+- Do NOT ask any other question.
+
+You MUST end your response with this EXACT question:
+
+${nextQuestion.question}
+
+Rules:
+
+- Acknowledge the user's previous message in one short sentence.
+- Ask ONLY the exact question above.
+- Do NOT rephrase it.
+- Do NOT end the response in any other way.
+- Keep the response under 2 sentences.
+`
+  } else {
+    modeInstructions = `
+CURRENT MODE: SCHEME RECOMMENDATION
+
+The user's profile is complete.
+
+Relevant Government Scheme Information:
+
+${trimmedDocuments.join("\n\n------------------------\n\n")}
+
+Your responsibilities:
+
+- Use ONLY the retrieved government scheme information.
+- Do NOT invent scheme names.
+- Recommend the most relevant schemes.
+- Explain why each scheme matches the user's profile.
+- Ask another question ONLY if a retrieved scheme explicitly requires ONE additional field to confirm eligibility.
+- Never interview the user for every scheme.
+`
+  }
+
   const systemInstruction = `
-    ${SYSTEM_PROMPT}
+${SYSTEM_PROMPT}
 
-    Current User Profile:
-    ${JSON.stringify(profile, null, 2)}
+Current User Profile:
 
-    Relevant Government Scheme Information:
-    ${trimmedDocuments.join("\n\n------------------------\n\n")}
+${JSON.stringify(profile, null, 2)}
 
-    Instructions:
-    - Use the above scheme information as the primary source of truth.
-    - If the retrieved information answers the user's question, base your response on it.
-    - If the retrieved information is insufficient, use your general knowledge but clearly indicate when information is not available in the retrieved schemes.
-  `
+The Current User Profile is the source of truth.
+
+Never ask for information already present in the Current User Profile.
+
+${modeInstructions}
+`
+
   try {
     const messages = [
       {
         role: "system",
         content: systemInstruction,
       },
-
       ...contents,
     ]
 
@@ -47,7 +96,7 @@ export const generateResponse = async (
 
     return response.choices[0].message.content
   } catch (error) {
-    console.error("Gemini Error:", error)
+    console.error("Groq Error:", error)
 
     if (error.status === 429) {
       return "The AI service is temporarily busy. Please try again in a moment."
@@ -56,6 +105,7 @@ export const generateResponse = async (
     return "Sorry, I couldn't generate a response due to an unexpected server error. Please try again."
   }
 }
+
 export const extractProfile = async (message) => {
   try {
     const response = await ai.chat.completions.create({

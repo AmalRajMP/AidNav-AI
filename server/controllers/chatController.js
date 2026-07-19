@@ -1,4 +1,5 @@
 import aiService from "../services/ai/aiService.js"
+
 export const chatWithAI = async (req, res) => {
   try {
     const { history, message, userProfile } = req.body
@@ -10,7 +11,8 @@ export const chatWithAI = async (req, res) => {
       })
     }
 
-    const { reply, profile } = await aiService(history, message)
+    const { reply, profile } = await aiService(history, message, userProfile)
+
     res.status(200).json({
       success: true,
       reply,

@@ -34,6 +34,7 @@ const BenefitsFinder = () => {
 
     try {
       const url = "http://localhost:5000/api/chat"
+      console.log("Sending Profile:", userProfile)
       const options = {
         method: "POST",
         headers: {

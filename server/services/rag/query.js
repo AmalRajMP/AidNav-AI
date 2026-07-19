@@ -8,7 +8,7 @@ export const searchDocuments = async (query) => {
 
   const results = await collection.query({
     queryEmbeddings: [queryEmbedding],
-    nResults: 3,
+    nResults: 1,
   })
 
   return results.documents?.[0] ?? []
