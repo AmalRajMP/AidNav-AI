@@ -33,7 +33,7 @@ const BenefitsFinder = () => {
     setIsTyping(true)
 
     try {
-      const url = "http://localhost:5000/api/chat"
+      const url = `${import.meta.env.VITE_API_URL}/api/chat`
       console.log("Sending Profile:", userProfile)
       const options = {
         method: "POST",
