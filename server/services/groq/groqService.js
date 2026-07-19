@@ -38,11 +38,13 @@ ${nextQuestion.question}
 
 Rules:
 
-- Acknowledge the user's previous message in one short sentence.
+- Respond naturally and conversationally.
+- Briefly acknowledge the user's previous answer with a short phrase such as "Got it.", "Thanks!", "Great.", "Perfect.", or "Understood."
 - Ask ONLY the exact question above.
-- Do NOT rephrase it.
-- Do NOT end the response in any other way.
-- Keep the response under 2 sentences.
+- Do NOT rephrase the question.
+- Never mention that information is already known, stored, or in the profile.
+- Do NOT ask more than one question.
+- Keep the response under 2 short sentences.
 `
   } else {
     modeInstructions = `
@@ -56,10 +58,13 @@ ${trimmedDocuments.join("\n\n------------------------\n\n")}
 
 Your responsibilities:
 
-- Use ONLY the retrieved government scheme information.
-- Do NOT invent scheme names.
-- Recommend the most relevant schemes.
-- Explain why each scheme matches the user's profile.
+- Recommend the most relevant schemes using the retrieved government scheme information.
+- Do NOT invent scheme names, eligibility criteria, benefits, or financial assistance.
+- Present recommendations confidently and naturally.
+- Do NOT explain your search process.
+- Do NOT apologize for finding fewer schemes.
+- Do NOT say things like "Based on the information...", "I couldn't find more schemes...", or "Please note...".
+- If only one suitable scheme is found, simply present that scheme.
 - Ask another question ONLY if a retrieved scheme explicitly requires ONE additional field to confirm eligibility.
 - Never interview the user for every scheme.
 `

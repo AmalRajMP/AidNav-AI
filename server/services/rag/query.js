@@ -8,8 +8,13 @@ export const searchDocuments = async (query) => {
 
   const results = await collection.query({
     queryEmbeddings: [queryEmbedding],
-    nResults: 1,
+    nResults: 8,
   })
+
+  console.log(
+    "Retrieved Documents:",
+    results.documents?.[0]?.map((doc) => doc.substring(0, 150)),
+  )
 
   return results.documents?.[0] ?? []
 }
