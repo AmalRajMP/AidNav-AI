@@ -26,14 +26,6 @@ const Navbar = () => {
           <li>
             <NavLink to="/find-benefits">Find Benefits</NavLink>
           </li>
-
-          <li>
-            <NavLink to="/about">About</NavLink>
-          </li>
-
-          <li>
-            <NavLink to="/contact">Contact</NavLink>
-          </li>
         </ul>
 
         <button
