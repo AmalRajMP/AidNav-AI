@@ -6,6 +6,7 @@ import { createEmbedding } from "./embedding.js"
 import { getCollection } from "./collection.js"
 
 const ingest = async () => {
+  console.log("CHROMA_URL:", process.env.CHROMA_URL)
   try {
     await client.deleteCollection({
       name: COLLECTION_NAME,
@@ -57,7 +58,6 @@ const ingest = async () => {
       ],
     })
   }
-
   console.log("\n All schemes ingested successfully.")
 }
 

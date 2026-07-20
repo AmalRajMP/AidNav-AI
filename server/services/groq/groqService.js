@@ -9,12 +9,19 @@ export const generateResponse = async (
   relevantDocuments = [],
   nextQuestion = null,
 ) => {
-  console.log(profile)
-  console.log("Retrieved document count:", relevantDocuments.length)
+  const trimmedDocuments = relevantDocuments.map((doc) => {
+    const content =
+      doc.content.length > 1200
+        ? doc.content.slice(0, 1200) + "\n..."
+        : doc.content
 
-  const trimmedDocuments = relevantDocuments.map((doc) =>
-    doc.length > 1200 ? doc.slice(0, 1200) + "\n..." : doc,
-  )
+    return `
+Official Application URL:
+${doc.officialUrl || "Not available"}
+
+${content}
+`
+  })
 
   let modeInstructions = ""
 
